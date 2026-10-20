@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>나도 몰랐던 내 이상형 찾기 · 하트커넥트</title>
+<meta name="description" content="이상형 물어보면 다들 「착한 사람」이라고 하죠. 근데 진짜 끌리는 사람도 그럴까요? 말한 이상형과 진짜 끌리는 사람을 비교해드려요.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="나도 몰랐던 내 이상형 찾기 · 하트커넥트">
+<meta property="og:description" content="이상형 물어보면 다들 「착한 사람」이라고 하죠. 근데 진짜 끌리는 사람도 그럴까요? 말한 이상형과 진짜 끌리는 사람을 비교해드려요.">
+<meta property="og:image" content="https://ideal.heartconnect.my/assets/og-image.png">
+<meta property="og:url" content="https://ideal.heartconnect.my/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="나도 몰랐던 내 이상형 찾기 · 하트커넥트">
+<meta name="twitter:description" content="이상형 물어보면 다들 「착한 사람」이라고 하죠. 근데 진짜 끌리는 사람도 그럴까요? 말한 이상형과 진짜 끌리는 사람을 비교해드려요.">
+<meta name="twitter:image" content="https://ideal.heartconnect.my/assets/og-image.png">
+
+
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1556477389271038');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1556477389271038&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel -->
+
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+
+  :root{
+    --bg:#fff;--bg-2:#fff8f6;
+    --surface:#fff;--surface-2:#fff8f6;
+    --border:#eee;--border-strong:#ff5a49;
+    --text:#111;--text-mute:#757575;--text-faint:#bdbdbd;
+    --accent:#ff5a49;--accent-2:#ff2e08;--on-accent:#fff;
+    --brand-tint:#ffe4e1;
+    --bubble-other:#f3f3f5;--bubble-other-text:#222;
+    --font-body:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+    --radius:16px;--radius-lg:22px;
+    --shadow:0 12px 34px rgba(255,90,73,.16);
+    --dot-off:#eee;
+  }
+
+  body{margin:0;word-break:keep-all;font-family:var(--font-body);color:var(--text);background:#fff;
+    min-height:100vh;display:flex;flex-direction:column;align-items:center}
+
+  .frame{width:100%;max-width:480px;background:#fff;position:relative;min-height:100vh;
+    display:flex;flex-direction:column}
+
+  .screen{flex:1;display:flex;flex-direction:column;padding:36px 22px 40px;position:relative;z-index:1;
+    animation:fade .45s ease both}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  /* logo */
+  .logo{display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:22px}
+  .logo img{height:26px;width:auto;display:block}
+  .logo__fallback{font-weight:800;font-size:19px;color:var(--accent);letter-spacing:-.02em;
+    display:flex;align-items:center;gap:6px}
+  .logo__heart{width:20px;height:18px;color:var(--accent)}
+
+  .btn{border:0;cursor:pointer;font-family:var(--font-body);font-weight:700;font-size:16px;padding:15px 22px;
+    border-radius:999px;background:var(--accent);color:var(--on-accent);width:100%;transition:transform .12s,filter .2s}
+  .btn:hover{filter:brightness(1.05)}.btn:active{transform:scale(.985)}
+  .btn--ghost{background:transparent;color:var(--text-mute);border:1px solid var(--border);font-weight:600}
+  .btn--outline{background:#fff;color:var(--accent);border:1.5px solid var(--accent)}
+  .btn:focus-visible,.opt:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+  /* ---- intro (merged) ---- */
+  .intro{justify-content:center;text-align:center}
+  .intro__title{font-weight:800;line-height:1.32;font-size:27px;letter-spacing:-.01em;margin:0 0 16px;color:var(--text)}
+  .intro__title em{font-style:normal;color:var(--accent)}
+  .intro__body{font-size:15px;line-height:1.75;color:var(--text-mute);margin:0 auto 22px;max-width:20em}
+  .intro__box{background:var(--bg-2);border:1px solid var(--brand-tint);border-radius:var(--radius);
+    padding:16px 18px;font-size:14px;line-height:1.65;color:var(--text);margin:0 auto 24px;max-width:22em}
+  .intro__box b{color:var(--accent);font-weight:700}
+
+  /* ---- chat header / day ---- */
+  .chead{display:flex;align-items:center;gap:10px;padding-bottom:14px;margin-bottom:6px;border-bottom:1px solid var(--border)}
+  .chead__t{font-weight:700;font-size:15px}
+  .chead__s{font-size:11.5px;color:var(--text-faint);margin-top:1px}
+  .chead__badge{margin-left:auto;font-size:11px;font-weight:700;color:var(--accent);
+    border:1px solid var(--border);border-radius:999px;padding:4px 10px}
+
+  .progress{display:flex;gap:7px;justify-content:center;margin:12px 0 8px}
+  .progress span{width:7px;height:7px;border-radius:50%;background:var(--dot-off);transition:.3s}
+  .progress span.on{background:var(--accent);transform:scale(1.15)}
+
+  /* question = my sent bubble on the right; answers come back on the left */
+  .qask{display:flex;flex-direction:column;align-items:flex-end;gap:5px;margin:0 0 18px}
+  .qask__label{font-size:11.5px;font-weight:700;color:var(--accent);padding-right:4px}
+  .qask__bubble{position:relative;max-width:85%;margin:0;padding:12px 16px;background:var(--accent);color:var(--on-accent);
+    font-size:15.5px;font-weight:600;line-height:1.5;border-radius:16px;border-top-right-radius:4px}
+  .qask__bubble::after{content:"";position:absolute;right:-7px;top:12px;border:7px solid transparent;
+    border-left-color:var(--accent);border-right:0}
+  .qtitle{font-weight:800;font-size:23px;line-height:1.4;text-align:center;color:var(--text);margin:8px 6px 20px}
+
+
+  /* ---- answer bubbles (left-aligned, speech style) ---- */
+  .achat{display:flex;flex-direction:column;gap:10px;flex:1}
+  .opt{display:flex;flex-direction:column;gap:4px;cursor:pointer;background:transparent;border:0;padding:0;
+    width:100%;font-family:var(--font-body);color:var(--text);align-items:flex-start;text-align:left}
+  .opt__nick{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--accent);padding-left:2px}
+  .opt__nick::before{content:"";width:22px;height:22px;border-radius:50%;background:var(--brand-tint);
+    display:inline-block;flex:none}
+  .opt__wrap{position:relative;padding-left:30px;width:100%}
+  .opt .bubble{position:relative;display:inline-block;max-width:100%;padding:13px 16px;font-size:15px;
+    line-height:1.5;border:1.5px solid var(--border);background:var(--surface);transition:.18s;color:var(--text);
+    border-radius:16px;border-top-left-radius:4px}
+  /* speech tail */
+  .opt .bubble::before{content:"";position:absolute;left:-7px;top:12px;width:0;height:0;
+    border:7px solid transparent;border-right-color:var(--surface);border-left:0;
+    filter:drop-shadow(-1.5px 0 0 var(--border));transition:.18s}
+  .opt:hover .bubble{border-color:var(--border-strong);background:var(--surface-2);transform:translateY(-1px)}
+  .opt:hover .bubble::before{border-right-color:var(--surface-2);filter:drop-shadow(-1.5px 0 0 var(--border-strong))}
+  .opt:hover .opt__nick{color:var(--accent-2)}
+
+  /* ---- blind answers (nickname stays hidden) ---- */
+  .opt__nick.is-hidden{color:var(--text-faint);letter-spacing:.08em}
+  .opt__nick.is-hidden::before{background:#eee}
+  .opt:hover .opt__nick.is-hidden{color:var(--text-faint)}
+  .achat.is-locked{pointer-events:none}
+  .achat.is-locked .opt:not(.is-picked) > *{opacity:.4;transition:opacity .3s}
+  .opt.is-picked .bubble{border-color:var(--border-strong);background:var(--surface-2)}
+  .opt.is-picked .bubble::before{border-right-color:var(--surface-2);filter:drop-shadow(-1.5px 0 0 var(--border-strong))}
+
+
+  /* ---- stated ideal / doubt ---- */
+  .stated,.doubt{justify-content:center;text-align:center}
+  .stated__title{font-weight:800;font-size:26px;margin:0 0 6px}
+  .stated__sub{font-size:13.5px;color:var(--text-mute);margin:0 0 24px}
+  .stated__list{display:flex;flex-direction:column;gap:10px}
+  .sopt{border:1.5px solid var(--border);background:#fff;border-radius:999px;padding:15px;font-family:var(--font-body);
+    font-size:16px;font-weight:700;color:var(--text);cursor:pointer;transition:.15s}
+  .sopt:hover,.sopt:active{border-color:var(--accent);color:var(--accent);background:var(--surface-2)}
+  .doubt__said{font-size:16px;font-weight:600;color:var(--text-mute);margin:0 0 6px}
+  .doubt__title{font-weight:800;font-size:30px;color:var(--accent);margin:0 0 18px}
+  .doubt__body{font-size:14.5px;line-height:1.75;color:var(--text-mute);margin:0 auto 28px}
+
+  /* ---- share image card (rendered to PNG by buildCard) ---- */
+  .hookbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom, 0px));z-index:40;
+    width:calc(100% - 32px);max-width:448px;display:flex;align-items:center;justify-content:space-between;gap:10px;
+    border:0;border-radius:999px;padding:15px 22px;background:var(--text);color:#fff;font-family:var(--font-body);
+    font-size:15px;cursor:pointer;box-shadow:0 10px 26px rgba(0,0,0,.22);transition:opacity .25s,transform .25s}
+  .hookbar b{color:#FFB3A6}
+  .hookbar.is-gone{opacity:0;pointer-events:none;transform:translateX(-50%) translateY(12px)}
+  .screen.qscreen{padding-top:14px}
+  .qscreen .progress{margin:4px 0 6px}
+  .qscreen .qtitle{margin:4px 6px 12px}
+  .qscreen .qask{margin-bottom:12px}
+  .screen.result{padding-top:14px}
+  .result{padding-bottom:96px}
+  .cardimg{width:86%;margin:0 auto 12px;border-radius:22px;overflow:hidden;aspect-ratio:9/16;
+    background:linear-gradient(274deg,#FFA45C 0%,#FF9A84 29%,#FF8FA6 100%);box-shadow:0 12px 30px rgba(255,90,73,.22)}
+  .cardimg img{display:block;width:100%;height:100%}
+  .cardimg img:not([src]){visibility:hidden}
+
+  /* ---- share card: one screenshot = gap + type + brand ---- */
+  .scard{background:var(--bg-2);border:1.5px solid var(--accent);border-radius:26px;padding:20px 18px 16px;margin:6px 0 10px;text-align:left}
+  .scard__eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.06em;color:var(--accent);text-align:center;margin:0 0 10px}
+  .scard .gcard__row + .gcard__row{border-top:1px dashed var(--brand-tint)}
+  .scard__type{text-align:center;margin-top:16px;padding-top:18px;border-top:1.5px solid var(--brand-tint)}
+  .scard__photo{width:52%;max-width:200px;margin:0 auto 12px;background:#fff;border-radius:18px;padding:8px 8px 0;
+    box-shadow:0 6px 18px rgba(255,90,73,.14);overflow:hidden}
+  .scard__illust{display:block;width:100%;aspect-ratio:2/3;object-fit:cover;object-position:top}
+  .scard .result__intro{margin:0 0 4px}
+  .scard .result__label{font-size:28px;margin:0 0 6px}
+  .scard .result__one{margin:0 auto 4px}
+  .scard__foot{margin-top:16px;padding-top:12px;border-top:1px dashed var(--brand-tint);text-align:center;
+    font-size:12px;font-weight:700;color:var(--accent)}
+  .scard__hint{text-align:center;font-size:12.5px;color:var(--text-mute);margin:6px 0 8px}
+  .result > .result__body{margin:0 0 4px}
+
+  /* ---- gap card ---- */
+  .gcard{border:1.5px solid var(--accent);border-radius:var(--radius-lg);padding:18px 18px 16px;margin:6px 0 14px;text-align:left}
+  .gcard__row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:6px 0;font-size:15px}
+  .gcard__row + .gcard__row{border-top:1px dashed var(--brand-tint)}
+  .gcard__k{font-size:12.5px;color:var(--text-mute);flex:none}
+  .gcard__row b{text-align:right}
+  .gcard__hl{color:var(--accent)}
+  .gcard__msg{font-size:17px;font-weight:800;text-align:center;margin:2px 0 12px;line-height:1.45}
+
+  /* ---- result ---- */
+  .result{text-align:center;display:flex;flex-direction:column}
+  .rcard{background:var(--bg-2);border:1px solid var(--brand-tint);border-radius:var(--radius-lg);
+    padding:26px 20px 22px;margin-bottom:14px}
+  .result__emoji{font-size:44px;margin:0 0 6px}
+  .result__illust{display:block;width:72%;max-width:260px;aspect-ratio:1;object-fit:cover;border-radius:50%;margin:4px auto 14px}
+  .result__intro{font-size:14px;font-weight:600;color:var(--text-mute);margin:0 0 10px}
+  .result__label{font-weight:800;font-size:30px;color:var(--accent);margin:0 0 8px;letter-spacing:-.01em}
+  .result__one{font-size:15px;font-weight:700;color:var(--text);margin:0 auto 16px;max-width:18em;line-height:1.5;text-wrap:balance}
+  .result__body{font-size:14px;line-height:1.75;color:var(--text-mute);text-align:left;margin:0}
+  .btn--save{margin-bottom:8px}
+  .rcard__actions{display:flex;gap:8px;margin-top:0}
+  .rcard__actions .btn{font-size:14px;padding:12px}
+  /* visible tinted secondary buttons */
+  .btn--tint{background:var(--brand-tint);color:var(--accent-2);border:0;font-weight:700}
+  .btn--tint:hover{filter:brightness(.97)}
+
+  /* ---- HC invite (separated) ---- */
+  .invite{margin-top:16px;padding-top:22px;border-top:1px dashed var(--brand-tint);text-align:center}
+  .invite__q{font-weight:800;font-size:25px;color:var(--accent);letter-spacing:-.01em;margin:0 0 10px;line-height:1.4}
+  .invite__body{font-size:15px;line-height:1.7;color:var(--text-mute);margin:0 auto 16px;max-width:22em}
+  .invite__body b{color:var(--text);font-weight:600}
+  .invite__brand{font-size:11.5px;line-height:1.6;color:var(--text-faint);margin:22px 0 0}
+  .invite__cta{width:auto;min-width:150px;padding-left:34px;padding-right:34px;
+    background:var(--accent);color:#fff;border:0}
+  .invite__cta:hover{filter:brightness(1.05)}
+
+  /* ---- gift coupon box ---- */
+  .giftbox{background:var(--brand-tint);border-radius:var(--radius);padding:18px 18px 16px;
+    margin:18px 0 20px;text-align:center}
+  .giftbox__title{font-size:14.5px;font-weight:700;color:var(--text);margin:0 0 4px;line-height:1.5}
+  .giftbox__body{font-size:13px;color:var(--text-mute);margin:0 0 12px;line-height:1.6}
+  .giftbox__body span{display:block;font-size:11.5px;margin-top:2px}
+  .giftbox__code{display:flex;align-items:center;justify-content:center;gap:8px;
+    background:#fff;border:1.5px dashed var(--accent);border-radius:999px;padding:9px 9px 9px 18px;
+    max-width:260px;margin:0 auto}
+  .giftbox__code span{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;
+    font-size:15px;letter-spacing:.02em;color:var(--accent-2)}
+  .giftbox__copy{border:0;cursor:pointer;background:var(--accent);color:#fff;font-weight:700;
+    font-size:12.5px;padding:7px 14px;border-radius:999px;font-family:var(--font-body)}
+  .giftbox__copy:hover{filter:brightness(1.05)}
+  .giftbox__hint{font-size:12.5px;line-height:1.5;color:var(--text);margin:12px 0 0}
+  .giftbox__hint b{font-weight:700;color:var(--accent-2)}
+
+  .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;
+    padding:11px 18px;border-radius:999px;font-size:13px;opacity:0;pointer-events:none;transition:.3s;z-index:50;max-width:90vw;text-align:center}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  @media (prefers-reduced-motion:reduce){.screen{animation:none}.btn:active,.opt:hover .bubble{transform:none}}
+</style>
+</head>
+<body>
+  <div class="frame"><div id="app"></div></div>
+  <div class="toast" id="toast"></div>
+
+<script>
+/* ============ DATA ============ */
+const AXES=["E","T","F","S"], RANK={E:0,T:1,F:2,S:3};
+/* answers are shown blind in a shuffled order each round */
+function shuffled(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+const PICK_MS=350; // brief tap feedback before the next question
+
+const QUESTIONS=[
+  { depth:"가벼운 질문", q:"이상적인 주말을 그려본다면?",
+    a:{E:"같이 있는 사람 기분 봐서, 하고 싶은 걸 맞춰요",T:"혼자 카페에서 책 읽어요. 연락은 저녁에 몰아서 해요",
+       F:"아침에 갑자기 \"바다 갈래?\" 해요. 계획은 가면서 짜요",S:"장 보고, 밀린 집안일 하고, 저녁은 해 먹어요"} },
+  { depth:"조금 더 깊이", q:"친구가 고민을 털어놓으면, 먼저 드는 생각은?",
+    a:{E:"듣다가 저도 같이 울컥해요. 해결은 잘 못 해줘요",T:"그 고민이 왜 생겼는지 끝까지 물어봐요",
+       F:"일단 맛있는 거 먹이고 웃게 해요. 얘기는 나중에요",S:"말은 짧게 하고, 필요한 걸 바로 해결해줘요"} },
+  { depth:"조금 더 깊이", q:"누군가를 더 알고 싶어질 때는?",
+    a:{E:"제가 말 안 한 기분까지 알아챌 때요",T:"새벽까지 정답 없는 얘기를 할 수 있을 때요",
+       F:"별것도 아닌 걸로 배 아프게 웃을 때요",S:"아무 말 안 해도 어색하지 않을 때요"} },
+  { depth:"깊은 질문", q:"좋아하는 사람이 힘들어 보이면, 어떻게 해요?",
+    a:{E:"괜찮냐고 자꾸 물어봐요. 말할 때까지요",T:"왜 힘든지 같이 차분히 정리해줘요",
+       F:"실없는 농담으로 일단 웃게 만들어요",S:"말은 없는데, 다음 날 필요한 걸 챙겨 와요"} }
+];
+const PURE={
+  T:{emoji:"🌙",name:"여백형",one:"말보다 여백이 아름다운 사람에게 반하는 당신",
+     body:"당신은 화려한 말이 아니라, 문득 던지는 한 마디에 오래 머무는 사람에게 마음이 움직였어요. 어쩌면 당신이 원하는 건 '나를 궁금해해주는 사람'보다, 함께 궁금해할 수 있는 사람인지도 몰라요. 같이 헤매도 편안한 사람, 그 여백 속에서 당신은 가장 당신다워지니까요."},
+  E:{emoji:"☕",name:"온기형",one:"마음의 온도가 높은 사람에게 반하는 당신",
+     body:"당신은 무슨 말을 했는지보다 어떤 마음이었는지를 읽어주는 사람에게 끌렸어요. 당신이 원하는 다정함은 거창한 게 아니에요. 괜찮냐는 말에 담긴 진짜 온도를 알아채는 사람. 당신은 사랑을 표현이 아니라 온기로 느끼는 사람이라, 당신 곁의 사람은 늘 조금 더 따뜻해져요."},
+  F:{emoji:"☀️",name:"햇살형",one:"곁에 있으면 삶이 가벼워지는 사람에게 반하는 당신",
+     body:"당신은 무거운 진심보다, 함께 웃다 보면 어느새 진심이 되는 사람에게 마음이 갔어요. 가벼움을 얕음으로 오해하지 마세요. 누군가의 하루를 가볍게 만들어주는 건 아무나 못 하는 다정함이에요. 당신이 원하는 건 삶의 무게를 같이 덜어줄 사람. 그 사람 옆에서 당신은 자주 웃게 될 거예요."},
+  S:{emoji:"🌳",name:"그늘형",one:"흔들려도 곁을 지키는 사람에게 반하는 당신",
+     body:"당신은 화려한 고백보다, 말없이 곁에 있어주는 사람에게 마음이 움직였어요. 당신이 원하는 건 나를 흔드는 설렘이 아니라, 어떤 날에도 기댈 수 있는 나무 그늘 같은 사람. 든든함을 재미없음으로 오해하지 마세요. 늘 그 자리에 있어주는 건, 가장 어려운 애정이니까요."}
+};
+const BLEND={
+  "E+T":{emoji:"✉️",name:"새벽편지형",one:"따뜻하면서도 깊은 사람에게 반하는 당신",
+     body:"마음을 읽어주는 다정함과, 쉽게 바닥을 보이지 않는 깊이를 동시에 원하는 사람. 가볍게 웃어넘기기보다, 밤에 긴 편지를 쓸 것 같은 사람에게 당신은 끌려요."},
+  "E+F":{emoji:"🌸",name:"봄볕형",one:"따뜻하고 유쾌한 사람에게 반하는 당신",
+     body:"마음을 살필 줄 알면서도 함께 있으면 웃음이 끊이지 않는 사람. 다정한데 무겁지 않고, 유쾌한데 얕지 않은, 곁에 있으면 그냥 기분이 좋아지는 사람에게 끌려요."},
+  "E+S":{emoji:"🧸",name:"담요형",one:"포근하고 안심되는 사람에게 반하는 당신",
+     body:"마음을 읽어주면서 동시에 곁을 지켜주는 사람. 설렘보다 편안함, 자극보다 안정. 하루의 끝에 돌아가 폭 안기고 싶은 담요 같은 사람에게 끌려요."},
+  "T+F":{emoji:"❓",name:"물음표형",one:"깊지만 무겁지 않은 사람에게 반하는 당신",
+     body:"진지한 질문을 던지다가도 툭 웃게 만드는 사람. 사유를 놀이처럼 나눌 수 있어서, 깊은데 숨 막히지 않는 대화를 하는 사람에게 끌려요."},
+  "T+S":{emoji:"🗼",name:"등대형",one:"조용히 방향이 되어주는 사람에게 반하는 당신",
+     body:"말은 많지 않지만 깊고, 흔들리지 않고 늘 그 자리에 있는 사람. 시끄럽게 이끌지 않아도, 곁에 있으면 길을 잃지 않게 되는 사람에게 끌려요."},
+  "F+S":{emoji:"🧺",name:"소풍형",one:"즐거운데 안심되는 사람에게 반하는 당신",
+     body:"함께 있으면 웃음이 끊이지 않으면서도, 어떤 순간엔 든든하게 챙겨주는 사람. 설렘과 안정을 한 사람에게서 느끼고 싶은 당신에게 딱 맞는 결이에요."}
+};
+const KALEIDO={emoji:"🔮",name:"만화경형",one:"하나의 매력에 갇히지 않는, 입체적인 사람에게 반하는 당신",
+  body:"당신은 다정함·깊이·유쾌함·든든함 중 하나만 고르지 않았어요. 순간마다 다른 결에 마음이 움직였죠. 그건 당신이 사람을 한 단어로 정의하지 않는다는 뜻이에요. 어쩌면 당신에게 맞는 이상형은 유형이 아니라, 대화를 나눌수록 새로운 면이 켜지는 사람일지도 몰라요."};
+
+/* stated-ideal words share the axis keys, so the result can be shown in the same words */
+const WORD={E:"다정한",T:"깊이 있는",F:"재밌는",S:"든든한"};
+Object.keys(PURE).forEach(k=>PURE[k].ax=[k]);
+Object.keys(BLEND).forEach(k=>BLEND[k].ax=k.split("+"));
+KALEIDO.ax=null;
+/* match: same axis · half: stated is one side of a blend · diff · kaleido: picked all four once */
+function gapOf(stated,r){
+  if(!r.ax) return "kaleido";
+  if(r.ax.length===1) return r.ax[0]===stated?"match":"diff";
+  return r.ax.includes(stated)?"half":"diff";
+}
+const GAP_MSG={
+  match:"말한 그대로 골랐어요.<br>자기 마음을 잘 아는 편이네요",
+  half:"반은 맞았어요.<br>끌리는 쪽이 하나 더 있었네요",
+  diff:"진짜 끌리는 건,<br>말한 것과 달랐어요",
+  kaleido:"하나로 정했지만, 실제로는<br>매번 다른 사람에게 끌렸어요"
+};
+const WORD_AND={E:"다정하고",T:"깊이 있고",F:"재밌고",S:"든든하고"};
+/* one axis → "깊이 있는 사람" · blend → "깊이 있고 든든한 사람" */
+function actualWords(r){
+  if(!r.ax) return "넷 다 한 번씩";
+  return r.ax.length===1 ? WORD[r.ax[0]]+" 사람" : `${WORD_AND[r.ax[0]]} ${WORD[r.ax[1]]} 사람`;
+}
+
+/* illustrations of the person shown on the result card — the opposite gender of the viewer.
+   per-type images (key = type name) win over "default"; empty → the type emoji is shown instead */
+const ILLUST={
+  M:{온기형:"assets/illust/men/male-08.jpg",여백형:"assets/illust/men/male-07.jpg",햇살형:"assets/illust/men/male-09.jpg",
+     그늘형:"assets/illust/men/male-20.jpg",새벽편지형:"assets/illust/men/male-02.jpg",봄볕형:"assets/illust/men/male-13.jpg",
+     담요형:"assets/illust/men/male-10.jpg",물음표형:"assets/illust/men/male-16.jpg",등대형:"assets/illust/men/male-01.jpg",
+     소풍형:"assets/illust/men/male-06.jpg",만화경형:"assets/illust/men/male-05.jpg"},          // shown to women
+  W:{온기형:"assets/illust/women/female-07.jpg",여백형:"assets/illust/women/female-10.jpg",햇살형:"assets/illust/women/female-01.jpg",
+     그늘형:"assets/illust/women/female-20.jpg",새벽편지형:"assets/illust/women/female-06.jpg",봄볕형:"assets/illust/women/female-17.jpg",
+     담요형:"assets/illust/women/female-12.jpg",물음표형:"assets/illust/women/female-13.jpg",등대형:"assets/illust/women/female-03.jpg",
+     소풍형:"assets/illust/women/female-14.jpg",만화경형:"assets/illust/women/female-05.jpg"}    // shown to men
+};
+function illustFor(gender,r){
+  const set=ILLUST[gender==="W"?"M":"W"]||{};
+  return set[r.name]||set.default||"";
+}
+
+/* ============ STATE ============ */
+let state={screen:"intro",gender:null,stated:null,round:0,picks:[]};
+function computeResult(picks){
+  const c={E:0,T:0,F:0,S:0}; picks.forEach(p=>c[p]++);
+  const s=[...AXES].sort((a,b)=>c[b]-c[a]||RANK[a]-RANK[b]);
+  const top=s[0],sec=s[1];
+  if(c[top]>=3) return PURE[top];
+  if(c[top]===2&&c[sec]===2) return BLEND[[top,sec].sort((a,b)=>RANK[a]-RANK[b]).join("+")];
+  if(c[top]===2&&c[sec]===1) return PURE[top];
+  return KALEIDO;
+}
+const app=document.getElementById("app");
+const CTA_URL="https://www.heartconnect.my/";
+const COUPON_CODE="FINDURHEART";
+
+/* ---- UTM capture & persistence ---- */
+const UTM_KEYS=["utm_source","utm_medium","utm_campaign","utm_content","utm_term"];
+function captureUTM(){
+  const q=new URLSearchParams(location.search);
+  const found={};
+  UTM_KEYS.forEach(k=>{ if(q.has(k)) found[k]=q.get(k); });
+  if(Object.keys(found).length) sessionStorage.setItem("hc_utm", JSON.stringify(found));
+}
+function getUTM(){
+  try{ return JSON.parse(sessionStorage.getItem("hc_utm")||"{}"); }catch(e){ return {}; }
+}
+function withUTM(url){
+  const utm=getUTM(), keys=Object.keys(utm);
+  if(!keys.length) return url;
+  const u=new URL(url);
+  keys.forEach(k=>u.searchParams.set(k,utm[k]));
+  return u.toString();
+}
+captureUTM();
+
+/* ---- Meta Pixel custom event helper (PageView is tracked as a standard event in <head>) ---- */
+function track(event,params){
+  if(typeof fbq==="function") fbq("trackCustom", event, {...getUTM(), ...(params||{})});
+}
+
+/* logo: swap src to your file (assets/logo-horizontal-red.png). Falls back to wordmark+heart if missing. */
+function logoHTML(){
+  return `<div class="logo">
+    <img src="assets/logo-horizontal-red.png" alt="하트커넥트"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+    <span class="logo__fallback" style="display:none">
+      하트커넥트
+      <svg class="logo__heart" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12 20.5C11.6 20.5 3 14.7 1.7 9.4 0.9 6.1 2.9 3 6 3c2 0 3.4 1.1 4.2 2.4C10.9 6.2 11.4 6.7 12 6.7c.6 0 1.1-.5 1.8-1.3C14.6 4.1 16 3 18 3c3.1 0 5.1 3.1 4.3 6.4C21 14.7 12.4 20.5 12 20.5Z" fill="currentColor"/>
+      </svg>
+    </span>
+  </div>`;
+}
+
+function render(){({intro:renderIntro,gender:renderGender,stated:renderStated,doubt:renderDoubt,question:renderQuestion,result:renderResult}[state.screen])();}
+
+/* ---- 1. INTRO (merged) ---- */
+function renderIntro(){
+  app.innerHTML=`
+    <div class="screen intro">
+      ${logoHTML()}
+      <h1 class="intro__title">나도 몰랐던<br><em>내 이상형 찾기</em></h1>
+      <p class="intro__body">이상형 물어보면 다들 "착한 사람"이라고 하죠.<br>근데 진짜 끌리는 사람도 그럴까요?</p>
+      <button class="btn" onclick="start()">시작하기</button>
+    </div>`;
+}
+
+/* ---- 1-1. GENDER (only picks which illustration the result shows) ---- */
+function renderGender(){
+  app.innerHTML=`
+    <div class="screen stated">
+      <h2 class="stated__title">먼저, 당신은?</h2>
+      <p class="stated__sub">결과 카드에 보여드릴 사람이 달라져요</p>
+      <div class="stated__list">
+        <button class="sopt" onclick="pickGender('W')">여자예요</button>
+        <button class="sopt" onclick="pickGender('M')">남자예요</button>
+      </div>
+    </div>`;
+}
+
+/* ---- 1-2. STATED IDEAL ---- */
+function renderStated(){
+  const chips=AXES.map((ax,k)=>`
+    <button class="sopt" onclick="pickStated('${ax}')" style="animation:fade .35s ease ${0.06*k}s both">${WORD[ax]} 사람</button>`).join("");
+  app.innerHTML=`
+    <div class="screen stated">
+      <h2 class="stated__title">당신의 이상형은?</h2>
+      <p class="stated__sub">하나만 골라주세요</p>
+      <div class="stated__list">${chips}</div>
+    </div>`;
+}
+
+/* ---- 1-3. DOUBT ---- */
+function renderDoubt(){
+  app.innerHTML=`
+    <div class="screen doubt">
+      <p class="doubt__said">${WORD[state.stated]} 사람</p>
+      <h2 class="doubt__title">진짜 그럴까요?</h2>
+      <p class="doubt__body">블라인드 연프에서 4명에게 질문을 했어요.<br>누구의 대답인지는 비밀이에요.<br>끌리는 대답을 골라보세요.</p>
+      <button class="btn" onclick="startQuestions()">확인해보기</button>
+    </div>`;
+}
+
+/* ---- 2. QUESTION ---- */
+function progressHTML(active){let s="";for(let i=0;i<4;i++)s+=`<span class="${i<=active?'on':''}"></span>`;return `<div class="progress">${s}</div>`;}
+function renderQuestion(){
+  const i=state.round, Q=QUESTIONS[i];
+  const answers=shuffled(AXES).map((ax,k)=>`
+    <button class="opt" data-ax="${ax}" onclick="pick('${ax}')" style="animation:fade .35s ease ${0.07*k}s both">
+      <span class="opt__nick is-hidden">???</span>
+      <div class="opt__wrap"><div class="bubble">${Q.a[ax]}</div></div>
+    </button>`).join("");
+  app.innerHTML=`
+    <div class="screen qscreen">
+      ${progressHTML(i)}
+      <h2 class="qtitle">누구랑 더 얘기해보고 싶어요?</h2>
+      <div class="qask">
+        <span class="qask__label">4명에게 물었어요</span>
+        <p class="qask__bubble">${Q.q}</p>
+      </div>
+      <div class="achat">${answers}</div>
+    </div>`;
+}
+
+/* ---- 3. RESULT ---- */
+function renderResult(){
+  const r=computeResult(state.picks), gap=gapOf(state.stated,r), ill=illustFor(state.gender,r);
+  track("TestComplete",{result_type:r.name,stated:state.stated,gap,gender:state.gender});
+  state.card=null;
+  buildCard(r,gap,ill).then(c=>{ state.card=c; const img=document.getElementById("cardImg"); if(img) img.src=c.url; })
+    .catch(()=>{ const box=app.querySelector(".cardimg"); if(box) box.hidden=true; });
+  app.innerHTML=`
+    <div class="screen result">
+      <div class="cardimg"><img id="cardImg" alt="나도 몰랐던 내 이상형 — ${WORD[state.stated]} 사람인 줄 알았는데, 진짜 이상형은 ${r.name}"></div>
+      <button class="btn btn--save" onclick="saveCard()">결과 이미지 저장</button>
+      <div class="rcard__actions">
+        <button class="btn btn--tint" onclick="copyLink()">링크 복사</button>
+        <button class="btn btn--tint" onclick="restart()">다시 테스트하기</button>
+      </div>
+      <div class="invite" id="invite">
+        <p class="invite__q">방금 끌린 대답들,<br>누구였을까요?</p>
+        <p class="invite__body">하트커넥트 연프에선<br><b>고르면 그 사람이 열려요.</b></p>
+        <div class="giftbox">
+          <p class="giftbox__title">그 사람을 열어볼 하트 10개를 드립니다.</p>
+          <p class="giftbox__body">가입하면 받는 하트에 더해서 드려요</p>
+          <div class="giftbox__code"><span id="couponCode">${COUPON_CODE}</span><button class="giftbox__copy" onclick="copyCoupon()">복사</button></div>
+          <p class="giftbox__hint">앱 가입 후 <b>설정 → 프로모션 코드</b>에 붙여넣어 주세요</p>
+        </div>
+        <button class="btn btn--outline invite__cta" onclick="ctaTap()">진짜 연프 해보기</button>
+        <p class="invite__brand">오늘 하루 연프 속 주인공처럼<br>블라인드 연프, 하트커넥트</p>
+      </div>
+    </div>
+    <button class="hookbar" id="hookbar" onclick="toHook()">
+      <span>방금 끌린 대답들, <b>누구였을까요?</b></span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"></path><path d="M6 13l6 6 6-6"></path></svg>
+    </button>`;
+  watchHook();
+}
+/* the hook section sits below the card; a floating bar points at it until it scrolls into view */
+let hookObs;
+function watchHook(){
+  if(hookObs) hookObs.disconnect();
+  const bar=document.getElementById("hookbar"), sec=document.getElementById("invite");
+  if(!bar||!sec||!("IntersectionObserver" in window)) return;
+  hookObs=new IntersectionObserver(([e])=>{ if(e.isIntersecting){ bar.classList.add("is-gone"); hookObs.disconnect(); } },{threshold:.15});
+  hookObs.observe(sec);
+}
+function toHook(){
+  track("HookBarTap");
+  document.getElementById("invite")?.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+/* ============ ACTIONS ============ */
+function start(){ track("TestStart"); state={screen:"gender",gender:null,stated:null,round:0,picks:[]}; render(); }
+function pickGender(g){ track("GenderPick",{gender:g}); state.gender=g; state.screen="stated"; render(); }
+function pickStated(ax){ track("StatedPick",{axis:ax}); state.stated=ax; state.screen="doubt"; render(); }
+function startQuestions(){ state.screen="question"; state.round=0; state.picks=[]; render(); }
+function pick(ax){
+  const list=app.querySelector(".achat");
+  if(!list||list.classList.contains("is-locked")) return;
+  track(`Q${state.round+1}`,{answer_axis:ax});
+  list.classList.add("is-locked");
+  const opt=list.querySelector(`.opt[data-ax="${ax}"]`);
+  opt.classList.add("is-picked");
+  /* no reveal here on purpose — who wrote it stays a secret until the closing hook */
+  setTimeout(()=>{
+    state.picks.push(ax); state.round++;
+    state.screen = state.round>=QUESTIONS.length ? "result" : "question"; render();
+  },PICK_MS);
+}
+function restart(){ state={screen:"intro",gender:null,stated:null,round:0,picks:[]}; render(); }
+function ctaTap(){
+  const r=computeResult(state.picks);
+  track("CTAClick",{result_type:r.name});
+  const go=()=>{ window.location.href=withUTM(CTA_URL); };
+  /* copy the coupon on the way out — most people skip the copy button */
+  if(navigator.clipboard) navigator.clipboard.writeText(COUPON_CODE)
+    .then(()=>{ toast("코드를 복사해뒀어요"); setTimeout(go,700); }).catch(go);
+  else go();
+}
+function copyCoupon(){
+  track("CouponCopy");
+  if(navigator.clipboard) navigator.clipboard.writeText(COUPON_CODE).then(()=>toast("코드를 복사했어요")).catch(()=>toast(COUPON_CODE));
+  else toast(COUPON_CODE);
+}
+/* copies the test link (not the result) so friends start from the intro */
+function copyLink(){
+  const r=computeResult(state.picks);
+  track("LinkCopy",{result_type:r.name,gap:gapOf(state.stated,r)});
+  copyText(location.origin+location.pathname,"링크를 복사했어요");
+}
+/* ============ SHARE IMAGE (design A — canvas "이상형 공유 카드") ============ */
+const CARD_W=1080, CARD_H=1920;
+const CARD_FONT='-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif';
+/* short bodies for the card (pure types' page bodies are too long for one image) */
+const CARD_BODY={
+  온기형:"무슨 말을 했는지보다 어떤 마음이었는지를 읽어주는 사람에게 끌렸어요. 당신은 사랑을 표현이 아니라 온기로 느끼는 사람이에요.",
+  여백형:"화려한 말이 아니라, 문득 던지는 한 마디에 오래 머무는 사람에게 마음이 움직였어요. 같이 헤매도 편안한 사람, 그 여백 속에서 당신은 가장 당신다워져요.",
+  햇살형:"함께 웃다 보면 어느새 진심이 되는 사람에게 마음이 갔어요. 삶의 무게를 같이 덜어줄 사람 옆에서, 당신은 자주 웃게 될 거예요.",
+  그늘형:"화려한 고백보다, 말없이 곁에 있어주는 사람에게 마음이 움직였어요. 늘 그 자리에 있어주는 건, 가장 어려운 애정이니까요.",
+  만화경형:"순간마다 다른 결에 마음이 움직였어요. 당신에게 맞는 이상형은 유형이 아니라, 대화를 나눌수록 새로운 면이 켜지는 사람일지도 몰라요."
+};
+const CARD_ONE={
+  햇살형:"곁에 있으면 삶이 가벼워지는\n사람에게 반하는 당신",
+  만화경형:"하나의 매력에 갇히지 않는,\n입체적인 사람에게 반하는 당신"
+};
+function cardHeadline(r,gap){
+  const said=WORD[state.stated]+" 사람";
+  if(gap==="match") return {strike:"",l1:"말한 이상형 그대로,",l2:"진짜도 "+said};
+  if(gap==="half"){ const other=r.ax.find(a=>a!==state.stated); return {strike:"",l1:said+"인 줄 알았는데",l2:WORD[other]+" 사람도 끌렸어요"}; }
+  if(gap==="kaleido") return {strike:said,l1:"인 줄 알았는데",l2:"매번 다른 사람에게 끌렸어요"};
+  return {strike:said,l1:"인 줄 알았는데",l2:"진짜는 "+actualWords(r)};
+}
+function loadImg(src){ return new Promise((ok,no)=>{ const i=new Image(); i.onload=()=>ok(i); i.onerror=no; i.src=src; }); }
+/* korean wraps between words (keep-all); a word wider than the line breaks by character */
+function wrapText(ctx,text,maxW){
+  const lines=[]; let cur="";
+  for(const w of text.split(" ")){
+    const next=cur?cur+" "+w:w;
+    if(ctx.measureText(next).width<=maxW){ cur=next; continue; }
+    if(cur) lines.push(cur);
+    if(ctx.measureText(w).width<=maxW){ cur=w; continue; }
+    cur=""; for(const ch of w){ if(ctx.measureText(cur+ch).width>maxW){ lines.push(cur); cur=ch; } else cur+=ch; }
+  }
+  if(cur) lines.push(cur);
+  return lines;
+}
+function font(weight,size){ return `${weight} ${size}px ${CARD_FONT}`; }
+/* css angle gradient (deg: 0 = to top, clockwise) mapped onto canvas coordinates */
+function cssGradient(ctx,deg,w,h,stops){
+  const a=deg*Math.PI/180, dx=Math.sin(a), dy=-Math.cos(a), len=Math.abs(w*dx)+Math.abs(h*dy);
+  const g=ctx.createLinearGradient(w/2-dx*len/2,h/2-dy*len/2,w/2+dx*len/2,h/2+dy*len/2);
+  stops.forEach(([o,c])=>g.addColorStop(o,c)); return g;
+}
+/* spread the leftover width across the word gaps; the last line is set flush left */
+function drawJustified(ctx,line,x,y,w,last){
+  const words=line.split(" ");
+  if(last||words.length<2){ ctx.fillText(line,x,y); return; }
+  const gap=(w-words.reduce((t,wd)=>t+ctx.measureText(wd).width,0))/(words.length-1);
+  if(gap>ctx.measureText(" ").width*3){ ctx.fillText(line,x,y); return; } // too loose: keep it ragged
+  let cx=x; for(const wd of words){ ctx.fillText(wd,cx,y); cx+=ctx.measureText(wd).width+gap; }
+}
+function roundRect(ctx,x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+async function buildCard(r,gap,ill){
+  const cv=document.createElement("canvas"); cv.width=CARD_W; cv.height=CARD_H;
+  const ctx=cv.getContext("2d"); ctx.textBaseline="top";
+  ctx.fillStyle=cssGradient(ctx,274,CARD_W,CARD_H,[[0,"#FFA45C"],[.29,"#FF9A84"],[1,"#FF8FA6"]]);
+  ctx.fillRect(0,0,CARD_W,CARD_H);
+
+  if(ill){ // line art multiplied onto the gradient at 60%, fading out toward its bottom
+    const im=await loadImg(ill), W=820, H=Math.round(W*im.naturalHeight/im.naturalWidth);
+    const off=document.createElement("canvas"); off.width=W; off.height=H;
+    const o=off.getContext("2d"); o.drawImage(im,0,0,W,H);
+    o.globalCompositeOperation="destination-in";
+    const m=o.createLinearGradient(0,0,0,H); m.addColorStop(0,"#000"); m.addColorStop(.62,"#000"); m.addColorStop(.86,"rgba(0,0,0,0)");
+    o.fillStyle=m; o.fillRect(0,0,W,H);
+    ctx.save(); ctx.globalAlpha=.5; ctx.globalCompositeOperation="multiply"; ctx.drawImage(off,130,290); ctx.restore();
+  }
+
+  const L=80, CW=920, TOP=180, BOTTOM=CARD_H-170, cx=CARD_W/2;
+  ctx.textAlign="center";
+  ctx.save(); ctx.shadowColor="rgba(160,50,40,.28)"; ctx.shadowBlur=8; ctx.font=font(700,44); ctx.fillStyle="rgba(255,255,255,.92)"; ctx.fillText("나도 몰랐던 내 이상형",cx,TOP+4); ctx.restore();
+
+  // headline: shrinks to fit when the first line is too wide
+  const h=cardHeadline(r,gap); let fs=66;
+  ctx.font=font(800,fs); const w1=ctx.measureText(h.strike+h.l1).width;
+  if(w1>CW){ fs=Math.floor(fs*CW/w1); ctx.font=font(800,fs); }
+  const lh=fs*1.35; let y=TOP+53+18;
+  ctx.save(); ctx.shadowColor="rgba(160,50,40,.32)"; ctx.shadowBlur=10; ctx.shadowOffsetY=1; ctx.fillStyle="#FFFFFF";
+  const sW=ctx.measureText(h.strike).width, lW=ctx.measureText(h.l1).width, x0=cx-(sW+lW)/2, ty=y+(lh-fs)/2;
+  ctx.textAlign="left";
+  if(h.strike){ ctx.globalAlpha=.7; ctx.fillText(h.strike,x0,ty); ctx.fillRect(x0,ty+fs*.52,sW,4); ctx.globalAlpha=1; }
+  ctx.fillText(h.l1,x0+sW,ty);
+  ctx.textAlign="center"; y+=lh;
+  for(const line of wrapText(ctx,h.l2,CW)){ ctx.fillText(line,cx,y+(lh-fs)/2); y+=lh; }
+  ctx.restore();
+
+  // bottom-up: brand line, then the frosted box above it
+  const footH=42, footY=BOTTOM-footH;
+  ctx.font=font(500,35); ctx.fillStyle="rgba(255,255,255,.95)"; ctx.fillText("블라인드 연프, 하트커넥트",cx,footY+3);
+
+  const PX=48, IW=CW-PX*2;
+  ctx.font=font(700,44); const oneLines=(CARD_ONE[r.name]||r.one).split("\n").flatMap(t=>wrapText(ctx,t,IW-20));
+  ctx.font=font(400,38); const bodyLines=wrapText(ctx,CARD_BODY[r.name]||r.body,IW);
+  const leadH=40, nameH=4+101+10, oneH=10+oneLines.length*61.6+10, bodyH=18+bodyLines.length*60.8;
+  const boxH=46+leadH+nameH+oneH+bodyH+44, boxY=footY-26-boxH;
+  ctx.fillStyle="rgba(255,255,255,.6)"; roundRect(ctx,L,boxY,CW,boxH,44); ctx.fill();
+
+  let by=boxY+46;
+  ctx.font=font(600,33); ctx.fillStyle="#6B4A44"; ctx.fillText("그래서 진짜 이상형은",cx,by+3); by+=leadH+4;
+  ctx.font=font(800,84); ctx.fillStyle="#FF4B24"; ctx.fillText(`${r.emoji} ${r.name}`,cx,by+8); by+=101+10;
+  ctx.font=font(700,44); ctx.fillStyle="#1A1A1C"; by+=10;
+  for(const line of oneLines){ ctx.fillText(line,cx,by+8); by+=61.6; }
+  by+=10+18;
+  ctx.font=font(400,38); ctx.fillStyle="#4A3A37"; ctx.textAlign="left";
+  bodyLines.forEach((line,k)=>{ drawJustified(ctx,line,L+PX,by+11,IW,k===bodyLines.length-1); by+=60.8; });
+
+  const blob=await new Promise(ok=>cv.toBlob(ok,"image/png"));
+  return {blob,url:URL.createObjectURL(blob)};
+}
+async function saveCard(){
+  const c=state.card; if(!c) return;
+  track("SaveImage",{result_type:computeResult(state.picks).name});
+  const file=new File([c.blob],"나도-몰랐던-내-이상형.png",{type:"image/png"});
+  if(navigator.canShare&&navigator.canShare({files:[file]})){
+    try{ await navigator.share({files:[file]}); return; }catch(e){ if(e&&e.name==="AbortError") return; }
+  }
+  const a=document.createElement("a"); a.href=c.url; a.download=file.name; document.body.appendChild(a); a.click(); a.remove();
+  toast("저장이 안 되면 이미지를 길게 눌러 저장해주세요");
+}
+function copyText(t,msg){ if(navigator.clipboard) navigator.clipboard.writeText(t).then(()=>toast(msg)).catch(()=>toast(t)); else toast(t); }
+let toastT;
+function toast(m){const el=document.getElementById("toast");el.textContent=m;el.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove("show"),2200);}
+
+render();
+</script>
+</body>
+</html>
