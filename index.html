@@ -465,6 +465,7 @@ function renderQuestion(){
 function renderResult(){
   const r=computeResult(state.picks), gap=gapOf(state.stated,r), ill=illustFor(state.gender,r);
   if(!state.restored) track("TestComplete",{result_type:r.name,stated:state.stated,gap,gender:state.gender});
+  if(IN_APP){ const q=new URLSearchParams(location.search); q.set("r",`${state.stated}-${state.gender}-${state.picks.join("")}`); history.replaceState(null,"",location.pathname+"?"+q); }
   state.card=null;
   buildCard(r,gap,ill).then(c=>{ state.card=c; const img=document.getElementById("cardImg"); if(img) img.src=c.dataUrl; })
     .catch(()=>{ const box=app.querySelector(".cardimg"); if(box) box.hidden=true; });
@@ -472,7 +473,9 @@ function renderResult(){
     <div class="screen result">
       <div class="cardimg"><img id="cardImg" alt="나도 몰랐던 내 이상형 — ${WORD[state.stated]} 사람인 줄 알았는데, 진짜 이상형은 ${r.name}"></div>
       <button class="btn btn--save" onclick="saveCard()">결과 이미지 저장</button>
-      <p class="savehint" id="saveHint" hidden>앱 안에서는 버튼 저장이 막혀 있어요.<br><b>위 이미지를 길게 눌러</b> 저장해주세요</p>
+      <p class="savehint" id="saveHint" hidden>${IS_ANDROID
+        ?"저장이 안 되면 오른쪽 위 <b>⋮ → 다른 브라우저로 열기</b>를 누르거나<br>위 결과 이미지를 <b>캡처</b>해주세요"
+        :"<b>위 이미지를 길게 눌러</b> 저장해주세요<br>안 되면 오른쪽 아래 <b>··· → 외부 브라우저로 열기</b>를 누르거나 <b>캡처</b>해주세요"}</p>
       <div class="rcard__actions">
         <button class="btn btn--tint" onclick="copyLink()">링크 복사</button>
         <button class="btn btn--tint" onclick="restart()">다시 테스트하기</button>
@@ -660,6 +663,10 @@ async function buildCard(r,gap,ill){
 }
 const IN_APP=/Instagram|FBAN|FBAV|KAKAOTALK|NAVER\(inapp|DaumApps|Line\//i.test(navigator.userAgent);
 const IS_ANDROID=/Android/i.test(navigator.userAgent);
+function showSaveHint(){
+  const h=document.getElementById("saveHint"); if(h) h.hidden=false;
+  document.getElementById("cardImg")?.scrollIntoView({behavior:"smooth",block:"center"});
+}
 async function saveCard(){
   const c=state.card; if(!c) return;
   track("SaveImage",{result_type:computeResult(state.picks).name});
@@ -668,17 +675,15 @@ async function saveCard(){
     const q=new URLSearchParams(getUTM()); q.set("r",`${state.stated}-${state.gender}-${state.picks.join("")}`);
     const web=`${location.origin}${location.pathname}?${q}`;
     location.href=`intent://${location.host}${location.pathname}?${q}#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=${encodeURIComponent(web)};end`;
+    setTimeout(showSaveHint,1500); // still here: Chrome didn't open
     return;
   }
   const file=new File([c.blob],"나도-몰랐던-내-이상형.png",{type:"image/png"});
+  if(IN_APP) showSaveHint(); // the share sheet may or may not exist in in-app webviews: show the fallback either way
   if(navigator.canShare&&navigator.canShare({files:[file]})){
     try{ await navigator.share({files:[file]}); return; }catch(e){ if(e&&e.name==="AbortError") return; }
   }
-  if(IN_APP){ // iOS webviews drop downloads silently, but long-press on the image works
-    const h=document.getElementById("saveHint"); if(h) h.hidden=false;
-    document.getElementById("cardImg")?.scrollIntoView({behavior:"smooth",block:"center"});
-    return;
-  }
+  if(IN_APP){ showSaveHint(); return; } // iOS webviews drop downloads silently, but long-press on the image works
   const a=document.createElement("a"); a.href=c.url; a.download=file.name; document.body.appendChild(a); a.click(); a.remove();
   toast("저장이 안 되면 이미지를 길게 눌러 저장해주세요");
 }
