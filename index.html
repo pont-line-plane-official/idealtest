@@ -163,7 +163,7 @@ fbq('track', 'PageView');
   .result{padding-bottom:96px}
   .cardimg{width:86%;margin:0 auto 12px;border-radius:22px;overflow:hidden;aspect-ratio:9/16;
     background:linear-gradient(274deg,#FFA45C 0%,#FF9A84 29%,#FF8FA6 100%);box-shadow:0 12px 30px rgba(255,90,73,.22)}
-  .cardimg img{display:block;width:100%;height:100%}
+  .cardimg img{display:block;width:100%;height:100%;-webkit-touch-callout:default;-webkit-user-select:auto;user-select:auto}
   .cardimg img:not([src]){visibility:hidden}
 
   /* ---- share card: one screenshot = gap + type + brand ---- */
@@ -202,6 +202,8 @@ fbq('track', 'PageView');
   .result__one{font-size:15px;font-weight:700;color:var(--text);margin:0 auto 16px;max-width:18em;line-height:1.5;text-wrap:balance}
   .result__body{font-size:14px;line-height:1.75;color:var(--text-mute);text-align:left;margin:0}
   .btn--save{margin-bottom:8px}
+  .savehint{margin:-2px 0 12px;text-align:center;font-size:13px;line-height:1.5;color:var(--accent-2)}
+  .savehint b{font-weight:700}
   .rcard__actions{display:flex;gap:8px;margin-top:0}
   .rcard__actions .btn{font-size:14px;padding:12px}
   /* visible tinted secondary buttons */
@@ -462,14 +464,15 @@ function renderQuestion(){
 /* ---- 3. RESULT ---- */
 function renderResult(){
   const r=computeResult(state.picks), gap=gapOf(state.stated,r), ill=illustFor(state.gender,r);
-  track("TestComplete",{result_type:r.name,stated:state.stated,gap,gender:state.gender});
+  if(!state.restored) track("TestComplete",{result_type:r.name,stated:state.stated,gap,gender:state.gender});
   state.card=null;
-  buildCard(r,gap,ill).then(c=>{ state.card=c; const img=document.getElementById("cardImg"); if(img) img.src=c.url; })
+  buildCard(r,gap,ill).then(c=>{ state.card=c; const img=document.getElementById("cardImg"); if(img) img.src=c.dataUrl; })
     .catch(()=>{ const box=app.querySelector(".cardimg"); if(box) box.hidden=true; });
   app.innerHTML=`
     <div class="screen result">
       <div class="cardimg"><img id="cardImg" alt="나도 몰랐던 내 이상형 — ${WORD[state.stated]} 사람인 줄 알았는데, 진짜 이상형은 ${r.name}"></div>
       <button class="btn btn--save" onclick="saveCard()">결과 이미지 저장</button>
+      <p class="savehint" id="saveHint" hidden>앱 안에서는 버튼 저장이 막혀 있어요.<br><b>위 이미지를 길게 눌러</b> 저장해주세요</p>
       <div class="rcard__actions">
         <button class="btn btn--tint" onclick="copyLink()">링크 복사</button>
         <button class="btn btn--tint" onclick="restart()">다시 테스트하기</button>
@@ -653,14 +656,28 @@ async function buildCard(r,gap,ill){
   bodyLines.forEach((line,k)=>{ drawJustified(ctx,line,L+PX,by+11,IW,k===bodyLines.length-1); by+=60.8; });
 
   const blob=await new Promise(ok=>cv.toBlob(ok,"image/png"));
-  return {blob,url:URL.createObjectURL(blob)};
+  return {blob,url:URL.createObjectURL(blob),dataUrl:cv.toDataURL("image/png")};
 }
+const IN_APP=/Instagram|FBAN|FBAV|KAKAOTALK|NAVER\(inapp|DaumApps|Line\//i.test(navigator.userAgent);
+const IS_ANDROID=/Android/i.test(navigator.userAgent);
 async function saveCard(){
   const c=state.card; if(!c) return;
   track("SaveImage",{result_type:computeResult(state.picks).name});
+  if(IN_APP&&IS_ANDROID){ // Android webviews have no long-press save: reopen this result in Chrome
+    track("OpenExternal",{result_type:computeResult(state.picks).name});
+    const q=new URLSearchParams(getUTM()); q.set("r",`${state.stated}-${state.gender}-${state.picks.join("")}`);
+    const web=`${location.origin}${location.pathname}?${q}`;
+    location.href=`intent://${location.host}${location.pathname}?${q}#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=${encodeURIComponent(web)};end`;
+    return;
+  }
   const file=new File([c.blob],"나도-몰랐던-내-이상형.png",{type:"image/png"});
   if(navigator.canShare&&navigator.canShare({files:[file]})){
     try{ await navigator.share({files:[file]}); return; }catch(e){ if(e&&e.name==="AbortError") return; }
+  }
+  if(IN_APP){ // iOS webviews drop downloads silently, but long-press on the image works
+    const h=document.getElementById("saveHint"); if(h) h.hidden=false;
+    document.getElementById("cardImg")?.scrollIntoView({behavior:"smooth",block:"center"});
+    return;
   }
   const a=document.createElement("a"); a.href=c.url; a.download=file.name; document.body.appendChild(a); a.click(); a.remove();
   toast("저장이 안 되면 이미지를 길게 눌러 저장해주세요");
@@ -669,6 +686,13 @@ function copyText(t,msg){ if(navigator.clipboard) navigator.clipboard.writeText(
 let toastT;
 function toast(m){const el=document.getElementById("toast");el.textContent=m;el.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove("show"),2200);}
 
+(function restoreResult(){
+  const q=new URLSearchParams(location.search), m=/^([ETFS])-([WM])-([ETFS]{4})$/.exec(q.get("r")||"");
+  if(!m||m[3].length!==QUESTIONS.length) return;
+  state={screen:"result",gender:m[2],stated:m[1],round:QUESTIONS.length,picks:[...m[3]],restored:true};
+  q.delete("r"); history.replaceState(null,"",location.pathname+(q.toString()?"?"+q:""));
+  setTimeout(()=>toast("저장 버튼을 눌러 이미지를 저장하세요"),600);
+})();
 render();
 </script>
 </body>
