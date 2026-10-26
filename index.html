@@ -499,7 +499,10 @@ function toHook(){
 
 /* ============ ACTIONS ============ */
 function start(){ track("TestStart"); state={screen:"gender",gender:null,stated:null,round:0,picks:[]}; render(); }
-function pickGender(g){ track("GenderPick",{gender:g}); state.gender=g; state.screen="stated"; render(); }
+function pickGender(g){
+  track("GenderPick",{gender:g}); state.gender=g; state.screen="stated"; render();
+  Object.values(ILLUST[g==="W"?"M":"W"]||{}).forEach(src=>loadImg(src).catch(()=>{}));
+}
 function pickStated(ax){ track("StatedPick",{axis:ax}); state.stated=ax; state.screen="doubt"; render(); }
 function startQuestions(){ state.screen="question"; state.round=0; state.picks=[]; render(); }
 function pick(ax){
@@ -558,7 +561,10 @@ function cardHeadline(r,gap){
   if(gap==="kaleido") return {strike:said,l1:"인 줄 알았는데",l2:"매번 다른 사람에게 끌렸어요"};
   return {strike:said,l1:"인 줄 알았는데",l2:"진짜는 "+actualWords(r)};
 }
-function loadImg(src){ return new Promise((ok,no)=>{ const i=new Image(); i.onload=()=>ok(i); i.onerror=no; i.src=src; }); }
+const imgCache={};
+function loadImg(src){
+  return imgCache[src]||(imgCache[src]=new Promise((ok,no)=>{ const i=new Image(); i.onload=()=>ok(i); i.onerror=()=>{ delete imgCache[src]; no(); }; i.src=src; }));
+}
 /* korean wraps between words (keep-all); a word wider than the line breaks by character */
 function wrapText(ctx,text,maxW){
   const lines=[]; let cur="";
@@ -642,13 +648,13 @@ async function buildCard(r,gap,ill){
   ctx.font=font(400,38); ctx.fillStyle="#4A3A37"; ctx.textAlign="left";
   bodyLines.forEach((line,k)=>{ drawJustified(ctx,line,L+PX,by+11,IW,k===bodyLines.length-1); by+=60.8; });
 
-  const blob=await new Promise(ok=>cv.toBlob(ok,"image/png"));
+  const blob=await new Promise(ok=>cv.toBlob(ok,"image/jpeg",.92)); // jpeg: encodes several times faster than png on phones
   return {blob,url:URL.createObjectURL(blob)};
 }
 async function saveCard(){
   const c=state.card; if(!c) return;
   track("SaveImage",{result_type:computeResult(state.picks).name});
-  const file=new File([c.blob],"나도-몰랐던-내-이상형.png",{type:"image/png"});
+  const file=new File([c.blob],"나도-몰랐던-내-이상형.jpg",{type:"image/jpeg"});
   if(navigator.canShare&&navigator.canShare({files:[file]})){
     try{ await navigator.share({files:[file]}); return; }catch(e){ if(e&&e.name==="AbortError") return; }
   }
