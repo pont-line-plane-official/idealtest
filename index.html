@@ -653,11 +653,11 @@ async function saveCard(){
     try{ await navigator.share({files:[file]}); return; }catch(e){ if(e&&e.name==="AbortError") return; }
   }
   const a=document.createElement("a"); a.href=c.url; a.download=file.name; document.body.appendChild(a); a.click(); a.remove();
-  toast("저장이 안 되면 이미지를 길게 눌러 저장해주세요");
+  toast("저장이 안 되면 화면을 캡처해서 공유해보세요",3500);
 }
 function copyText(t,msg){ if(navigator.clipboard) navigator.clipboard.writeText(t).then(()=>toast(msg)).catch(()=>toast(t)); else toast(t); }
 let toastT;
-function toast(m){const el=document.getElementById("toast");el.textContent=m;el.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove("show"),2200);}
+function toast(m,ms=2200){const el=document.getElementById("toast");el.textContent=m;el.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove("show"),ms);}
 
 render();
 </script>
