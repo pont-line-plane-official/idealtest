@@ -154,7 +154,6 @@ fbq('track', 'PageView');
     border:0;border-radius:999px;padding:15px 22px;background:var(--text);color:#fff;font-family:var(--font-body);
     font-size:15px;cursor:pointer;box-shadow:0 10px 26px rgba(0,0,0,.22);transition:opacity .25s,transform .25s}
   .hookbar b{color:#FFB3A6}
-  .hookbar.is-gone{opacity:0;pointer-events:none;transform:translateX(-50%) translateY(12px)}
   .screen.qscreen{padding-top:14px}
   .qscreen .progress{margin:4px 0 6px}
   .qscreen .qtitle{margin:4px 6px 12px}
@@ -163,7 +162,7 @@ fbq('track', 'PageView');
   .result{padding-bottom:96px}
   .cardimg{width:86%;margin:0 auto 12px;border-radius:22px;overflow:hidden;aspect-ratio:9/16;
     background:linear-gradient(274deg,#FFA45C 0%,#FF9A84 29%,#FF8FA6 100%);box-shadow:0 12px 30px rgba(255,90,73,.22)}
-  .cardimg img{display:block;width:100%;height:100%;-webkit-touch-callout:default;-webkit-user-select:auto;user-select:auto}
+  .cardimg img{display:block;width:100%;height:100%}
   .cardimg img:not([src]){visibility:hidden}
 
   /* ---- share card: one screenshot = gap + type + brand ---- */
@@ -202,8 +201,6 @@ fbq('track', 'PageView');
   .result__one{font-size:15px;font-weight:700;color:var(--text);margin:0 auto 16px;max-width:18em;line-height:1.5;text-wrap:balance}
   .result__body{font-size:14px;line-height:1.75;color:var(--text-mute);text-align:left;margin:0}
   .btn--save{margin-bottom:8px}
-  .savehint{margin:-2px 0 12px;text-align:center;font-size:13px;line-height:1.5;color:var(--accent-2)}
-  .savehint b{font-weight:700}
   .rcard__actions{display:flex;gap:8px;margin-top:0}
   .rcard__actions .btn{font-size:14px;padding:12px}
   /* visible tinted secondary buttons */
@@ -464,18 +461,14 @@ function renderQuestion(){
 /* ---- 3. RESULT ---- */
 function renderResult(){
   const r=computeResult(state.picks), gap=gapOf(state.stated,r), ill=illustFor(state.gender,r);
-  if(!state.restored) track("TestComplete",{result_type:r.name,stated:state.stated,gap,gender:state.gender});
-  if(IN_APP){ const q=new URLSearchParams(location.search); q.set("r",`${state.stated}-${state.gender}-${state.picks.join("")}`); history.replaceState(null,"",location.pathname+"?"+q); }
+  track("TestComplete",{result_type:r.name,stated:state.stated,gap,gender:state.gender});
   state.card=null;
-  buildCard(r,gap,ill).then(c=>{ state.card=c; const img=document.getElementById("cardImg"); if(img) img.src=c.dataUrl; })
+  buildCard(r,gap,ill).then(c=>{ state.card=c; const img=document.getElementById("cardImg"); if(img) img.src=c.url; })
     .catch(()=>{ const box=app.querySelector(".cardimg"); if(box) box.hidden=true; });
   app.innerHTML=`
     <div class="screen result">
       <div class="cardimg"><img id="cardImg" alt="나도 몰랐던 내 이상형 — ${WORD[state.stated]} 사람인 줄 알았는데, 진짜 이상형은 ${r.name}"></div>
       <button class="btn btn--save" onclick="saveCard()">결과 이미지 저장</button>
-      <p class="savehint" id="saveHint" hidden>${IS_ANDROID
-        ?"저장이 안 되면 오른쪽 위 <b>⋮ → 다른 브라우저로 열기</b>를 누르거나<br>위 결과 이미지를 <b>캡처</b>해주세요"
-        :"<b>위 이미지를 길게 눌러</b> 저장해주세요<br>안 되면 오른쪽 아래 <b>··· → 외부 브라우저로 열기</b>를 누르거나 <b>캡처</b>해주세요"}</p>
       <div class="rcard__actions">
         <button class="btn btn--tint" onclick="copyLink()">링크 복사</button>
         <button class="btn btn--tint" onclick="restart()">다시 테스트하기</button>
@@ -497,17 +490,8 @@ function renderResult(){
       <span>방금 끌린 대답들, <b>누구였을까요?</b></span>
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"></path><path d="M6 13l6 6 6-6"></path></svg>
     </button>`;
-  watchHook();
 }
-/* the hook section sits below the card; a floating bar points at it until it scrolls into view */
-let hookObs;
-function watchHook(){
-  if(hookObs) hookObs.disconnect();
-  const bar=document.getElementById("hookbar"), sec=document.getElementById("invite");
-  if(!bar||!sec||!("IntersectionObserver" in window)) return;
-  hookObs=new IntersectionObserver(([e])=>{ if(e.isIntersecting){ bar.classList.add("is-gone"); hookObs.disconnect(); } },{threshold:.15});
-  hookObs.observe(sec);
-}
+/* the hook section sits below the card; a floating bar points at it the whole time */
 function toHook(){
   track("HookBarTap");
   document.getElementById("invite")?.scrollIntoView({behavior:"smooth",block:"start"});
@@ -659,31 +643,15 @@ async function buildCard(r,gap,ill){
   bodyLines.forEach((line,k)=>{ drawJustified(ctx,line,L+PX,by+11,IW,k===bodyLines.length-1); by+=60.8; });
 
   const blob=await new Promise(ok=>cv.toBlob(ok,"image/png"));
-  return {blob,url:URL.createObjectURL(blob),dataUrl:cv.toDataURL("image/png")};
-}
-const IN_APP=/Instagram|FBAN|FBAV|KAKAOTALK|NAVER\(inapp|DaumApps|Line\//i.test(navigator.userAgent);
-const IS_ANDROID=/Android/i.test(navigator.userAgent);
-function showSaveHint(){
-  const h=document.getElementById("saveHint"); if(h) h.hidden=false;
-  document.getElementById("cardImg")?.scrollIntoView({behavior:"smooth",block:"center"});
+  return {blob,url:URL.createObjectURL(blob)};
 }
 async function saveCard(){
   const c=state.card; if(!c) return;
   track("SaveImage",{result_type:computeResult(state.picks).name});
-  if(IN_APP&&IS_ANDROID){ // Android webviews have no long-press save: reopen this result in Chrome
-    track("OpenExternal",{result_type:computeResult(state.picks).name});
-    const q=new URLSearchParams(getUTM()); q.set("r",`${state.stated}-${state.gender}-${state.picks.join("")}`);
-    const web=`${location.origin}${location.pathname}?${q}`;
-    location.href=`intent://${location.host}${location.pathname}?${q}#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=${encodeURIComponent(web)};end`;
-    setTimeout(showSaveHint,1500); // still here: Chrome didn't open
-    return;
-  }
   const file=new File([c.blob],"나도-몰랐던-내-이상형.png",{type:"image/png"});
-  if(IN_APP) showSaveHint(); // the share sheet may or may not exist in in-app webviews: show the fallback either way
   if(navigator.canShare&&navigator.canShare({files:[file]})){
     try{ await navigator.share({files:[file]}); return; }catch(e){ if(e&&e.name==="AbortError") return; }
   }
-  if(IN_APP){ showSaveHint(); return; } // iOS webviews drop downloads silently, but long-press on the image works
   const a=document.createElement("a"); a.href=c.url; a.download=file.name; document.body.appendChild(a); a.click(); a.remove();
   toast("저장이 안 되면 이미지를 길게 눌러 저장해주세요");
 }
@@ -691,13 +659,6 @@ function copyText(t,msg){ if(navigator.clipboard) navigator.clipboard.writeText(
 let toastT;
 function toast(m){const el=document.getElementById("toast");el.textContent=m;el.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove("show"),2200);}
 
-(function restoreResult(){
-  const q=new URLSearchParams(location.search), m=/^([ETFS])-([WM])-([ETFS]{4})$/.exec(q.get("r")||"");
-  if(!m||m[3].length!==QUESTIONS.length) return;
-  state={screen:"result",gender:m[2],stated:m[1],round:QUESTIONS.length,picks:[...m[3]],restored:true};
-  q.delete("r"); history.replaceState(null,"",location.pathname+(q.toString()?"?"+q:""));
-  setTimeout(()=>toast("저장 버튼을 눌러 이미지를 저장하세요"),600);
-})();
 render();
 </script>
 </body>
